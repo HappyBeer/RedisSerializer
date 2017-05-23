@@ -19,6 +19,7 @@ window-->Preferences-->Maven-->Annotation Processing-->Automatically configure J
 </dependency>
 ````
 
+http://www.importnew.com/12548.html
 
 
 

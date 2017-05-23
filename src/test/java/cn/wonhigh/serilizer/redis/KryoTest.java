@@ -15,17 +15,23 @@ import org.springframework.data.redis.serializer.SerializationException;
 public class KryoTest extends TestParent{
 	protected RedisSerializer serializer = new KryoRedisSerializer<>();
 	
-	@Benchmark
-	public void serialize() throws SerializationException {
+	private void testserialize(){
 		for (int i= 0 ; i < getSerNum() ; i++){
 			serializer.serialize(getObj());
 		}
 	}
-	@Benchmark
-	public void deserialize() throws SerializationException {
-		for (int i= 0 ; i < getSerNum() ; i++){
+	private void testdeserialize(){
+		for (int i= 0 ; i < getDesNum() ; i++){
 			serializer.deserialize(serializer.serialize(getObj()));
 		}
+	}
+	@Benchmark
+	public void serialize() throws SerializationException {
+		testserialize();
+	}
+	@Benchmark
+	public void deserialize() throws SerializationException {
+		testdeserialize();
 	}
 	
 }

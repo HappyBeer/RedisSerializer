@@ -21,7 +21,6 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
- * TODO: 增加描述
  * 
  * @author tan.yf
  * @date 2017年5月23日 上午9:07:20
@@ -29,10 +28,10 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * @copyright wonhigh.cn
  */
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@State(Scope.Benchmark)
+@State(Scope.Thread)
 @Fork(1)
 @Warmup(iterations = 2)
-@Measurement(iterations = 10)
+@Measurement(iterations = 5)
 @BenchmarkMode(Mode.SingleShotTime)
 public class TestParent {
 
@@ -46,19 +45,19 @@ public class TestParent {
 		// destory 
 	}
 
-	private static UserInfo getUserInfo() {
+	private static UserInfo getUserInfo(int i) {
 		UserInfo userInfo = new UserInfo();
-		userInfo.setId(10);
-		userInfo.setAccount("admin");
-		userInfo.setName("admin");
+		userInfo.setId(i);
+		userInfo.setAccount("admin"+i);
+		userInfo.setName("admin"+i);
 		userInfo.setCreateTime(new Date());
 		return userInfo;
 	}
 	
 	protected Object getObj() {
-		List<UserInfo> uList = new ArrayList<>(1000);
-		for (int i = 0; i < 1000; i++) {
-			uList.add(getUserInfo());
+		List<UserInfo> uList = new ArrayList<>(1);
+		for (int i = 0; i < 5; i++) {
+			uList.add(getUserInfo(i));
 		}
 //		return getUserInfo();
 		return uList;
@@ -66,12 +65,12 @@ public class TestParent {
 	
 	// 序列化次数
 	protected int getSerNum() {
-		return 10000;
+		return 100000;
 	}
 
 	// 反序列化次数
 	protected int getDesNum() {
-		return 10000;
+		return 100000;
 	}
 	
 	public static void main(String[] args) throws RunnerException {
