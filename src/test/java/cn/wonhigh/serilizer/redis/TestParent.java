@@ -28,7 +28,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * @copyright wonhigh.cn
  */
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 @Fork(1)
 @Warmup(iterations = 2)
 @Measurement(iterations = 5)
